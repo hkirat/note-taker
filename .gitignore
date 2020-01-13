@@ -1,4 +1,6 @@
 client/node_modules
 server/node_modules
+client/package-lock.json
+server/package-lock.json
 client/src/config.js
 server/config/config.js
