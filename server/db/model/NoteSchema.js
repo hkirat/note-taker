@@ -9,7 +9,9 @@ var NotesSchema = mongoose.Schema({
     lastUpdated: {type: Date},
     description: {type: Object},
     admin: {type: ObjectId},
-    members: {type: Array}
+    members: {type: Array},
+    slug: {type: String},
+    requests: {type: Array}
 });
 
   

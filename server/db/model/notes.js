@@ -1,21 +1,29 @@
-let {User} = require('./UserSchema');
-let jwt = require('jsonwebtoken');
+let {Notes} = require('./NoteSchema');
 let config = require('../../config/config');
+let NOTE_LIMIT = config.GLOBALS.NOTE_LIMIT;
 
-function get(_id) {
-	return User.User.findOne({_id}).exec();
+function getAll() {
+	return Notes.find({}).limit(NOTE_LIMIT).exec();
 }
 
-function register(email, password, first_name, last_name) {
-	return new Promise((resolve, reject) => {
-		User.register(new User({
-	        active: false,
-	        email: email,
-	        first_name: first_name,
-	        last_name: last_name
-	    }), password)
-	    .exec();
-	})
+function get(slug, user_id) {
+	return Notes.findOne({slug, user: {"$in": members}});
 }
 
-module.exports = {get};
+function add(slug, user_id, member_id) {
+	return get(slug, member_id)
+		.then((note) => {
+			if(note.)
+			return Notes.updateOne({slug}, {"$push": {"members": user_id}});
+		})
+}
+
+function request(slug, user_id) {
+	Notes.updateOne({slug}, {"$push": {"requests": user_id}});
+}
+
+function insert(title, description, admin) {
+	return Notes.create({admin, members: [admin], description, title}).exec();
+}
+
+module.exports = {get, insert, request, add, getAll};

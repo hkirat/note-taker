@@ -62,4 +62,8 @@ router.post('/signIn', [userExists, passport.authenticate('local')], function(re
     res.send({message:'You are logged in', user: trimUser(req.user), token:token})
 })
 
+router.get('/', [ensureAuthenticated], function(req, res) {
+    res.json({user: trimUser(req.user)});
+})
+
 module.exports = router;
