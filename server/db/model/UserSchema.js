@@ -6,7 +6,7 @@ let Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var UserSchema = mongoose.Schema({
-    email: { type: String, index: true, required: true },
+    username: {type: String, index: true, required: true},
     active: {type: Boolean}, // the user activate his account
     dateOfRegistration: {type: Date},
     first_name: {type: String},

@@ -6,6 +6,7 @@ let logger = require("morgan");
 
 let config  = require('./config/config')
 let user = require('./routes/user')
+
 /*
 let resetPasswordHandler = require('./routes/resetPasswordHandler')
 let resetPasswordEmail = require('./routes/resetPasswordEmail')
@@ -15,9 +16,14 @@ let protected = require('./routes/protected')
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let session = require('express-session')
+let {User} = require('./db/model/UserSchema');
 
 // mongo imports
 let mongodb = require('mongodb');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 let MongoClient = require('mongodb').MongoClient;
 let {mongoose} = require('./db/mongoose');
 

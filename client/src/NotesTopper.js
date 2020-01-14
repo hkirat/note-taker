@@ -27,6 +27,10 @@ class Landing extends React.Component {
 		this.getLoggedIn();
 	}
 
+	setUser = (user) => {
+		this.setState({user, isLoggedIn: true})
+	}
+	
 	getLoggedIn = () => {
 	    let self = this;
 	    axios.post(`${config.backEndServer}/user/get`, {
@@ -52,6 +56,7 @@ class Landing extends React.Component {
 		return (
 			<LoginModal
 				modalOpen={!this.state.isLoggedIn}
+				setUser={this.setUser}
 			/>
 		);
 	}

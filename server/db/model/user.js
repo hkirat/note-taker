@@ -7,15 +7,12 @@ function get(_id) {
 }
 
 function register(email, password, first_name, last_name) {
-	return new Promise((resolve, reject) => {
-		User.register(new User({
+	return User.register(new User({
 	        active: false,
-	        email: email,
+	        username: email,
 	        first_name: first_name,
 	        last_name: last_name
 	    }), password)
-	    .exec();
-	})
 }
 
 module.exports = {get, register};

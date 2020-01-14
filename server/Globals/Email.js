@@ -102,7 +102,7 @@ function email(link, msg) {
                         <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                             <tr>
                             <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi there, Thank you for signing up to <a style="font-family:'Pattaya', sans-serif; text-decoration:none; color:#161616;" href="#" >Your app</a></p>
+                                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi there, Thank you for signing up to <a style="font-family:'Pattaya', sans-serif; text-decoration:none; color:#161616;" href="#" >Notes</a></p>
                                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
                                 <tbody>
                                     <tr>
@@ -132,9 +132,6 @@ function email(link, msg) {
                     <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                         <tr>
                         <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                            <div>
-                                <a href="#" style="font-family:'Pattaya', sans-serif; color: #999999; font-size: 18px; text-align: center;' text-decoration:none;">Indi Quizo</a>
-                            </div>
                             <br> <a href="#" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;"></a>.
                         </td>
                         </tr>

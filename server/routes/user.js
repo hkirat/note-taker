@@ -34,13 +34,16 @@ router.post('/signUp', function(req, res) {
     if (!validatePassword(req.body.password).success) {
         return res.status(401).json({msg: "Password format is incorrect"});
     }
-    if(!validateEmail(req.body.email)) {
+    if(!validateEmail(req.body.username)) {
         return res.status(401).json({msg: "Email address format is incorrect"});
     }
-    let token = jwt.sign({ email: req.body.email }, config.JWTsecret, {});
-    userModel.register()
+    if(!req.body.first_name || !req.body.last_name) {
+        return res.status(401).json({msg: "Please provide first and last name"});        
+    }
+    let token = jwt.sign({ username: req.body.username }, config.JWTsecret, {});
+    userModel.register(req.body.username, req.body.password, req.body.first_name, req.body.last_name)
         .then((userAcc) => {
-            sendMail(req.body.email, `Please validate your account ${config.server}/activate/${token}/${req.body.username}`, function(err) {
+            sendMail(req.body.username, `Please validate your account`, `${config.server}/activate/${token}/${req.body.username}`, function(err) {
                     if(err) {
                         res.status(401).json({message: "Error while sending verification mail, please try again"});
                     }
@@ -48,7 +51,7 @@ router.post('/signUp', function(req, res) {
                 });
         })
         .catch((err) => {
-            res.status(404).json({});
+            res.status(404).json({msg: err.message});
         })
 })
 
