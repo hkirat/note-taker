@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Redirect } from 'react-router-dom'
+import axios from "axios";
+import config from "./config";
 
 import {
   Container, Col, Form,
@@ -13,28 +14,48 @@ class Notes extends React.Component {
   constructor(props){  
     super(props);  
     this.state = {
-      isLoggedIn: false,
+      notes: [],
       render: false
     }
-    this.verifyCreds();
+    this.getNotes();
+  }
+
+  getNotes = () => {
+    axios.get(`${config.backEndServer}/notes/?token=${ JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token : ''}`)
+      .then((res) => {
+       return this.setState({render: true, notes: res.data.notes});
+      })
+      .catch(e => {
+         this.setState({render: true}); //TODO Alert message
+      })
+  }
+
+  renderNotes = () => {
+    return (
+      <div>
+        {this.state.notes.map((item, key) => <div> Note</div>)}
+      </div>
+    )
+  }
+
+  renderAdder = () => {
+    return (
+      <Button href="/notes/add">
+        Add Note
+      </Button>
+    )
   }
 
   render() {
+    if(!this.state.render) {
+      return (
+      <div>loading</div>
+      )
+    }
     return (
       <Container className="App">
-         <Modal isOpen={this.props.modalOpen}>
-          <h2>Sign In</h2>
-           <Form>
-            <FormGroup>
-              <Label for="exampleEmail">Email</Label>
-              <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input type="password" name="password" id="examplePassword" placeholder="Password" />
-            </FormGroup>
-          </Form>
-        </Modal>
+        {this.renderNotes()}
+        {this.renderAdder()}
       </Container>
     );
   }

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Notes from './NotesTopper';
+import NotesTopper from './NotesTopper';
 import * as serviceWorker from './serviceWorker';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 const routing = (
   <Router>
     <div>
-      <Route exact path="/notes" component={Notes} />
+      <Route path="/notes" component={NotesTopper} />
     </div>
   </Router>
 )

@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Switch, Route, Redirect } from "react-router-dom";
-import LoginModal from './LoginModal'
+import LoginModal from './LoginModal';
+import Notes from "./Notes";
 import notesRoutes from "./routes/notesRoutes"
 import axios from "axios";
 import config from "./config";
@@ -10,9 +11,7 @@ import config from "./config";
 const switchRoutes = (
   <Switch>
     {notesRoutes.map((prop, key) => {
-      if (prop.redirect)
-        return <Redirect from={prop.path} to={prop.to} key={key} />;
-      return <Route path={prop.path} component={prop.component} key={key} />;
+      return <Route path={prop.path} component={prop.component} key={key} />
     })}
   </Switch>
 );
@@ -33,9 +32,7 @@ class Landing extends React.Component {
 	
 	getLoggedIn = () => {
 	    let self = this;
-	    axios.post(`${config.backEndServer}/user/get`, {
-	      token: JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token : '',
-	    })
+	    axios.get(`${config.backEndServer}/user/?token=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token : ''}`)
 	    .then((res) => {
 	      if ((res.status == 200 || res.status == 204 )) {
 	         return self.setState({render: true, user: res.data.user, isLoggedIn: true});
@@ -54,10 +51,15 @@ class Landing extends React.Component {
 			)
 		}
 		return (
-			<LoginModal
-				modalOpen={!this.state.isLoggedIn}
-				setUser={this.setUser}
-			/>
+			<div>
+				<LoginModal
+					modalOpen={!this.state.isLoggedIn}
+					setUser={this.setUser}
+				/>
+				<div>
+					{switchRoutes}
+				</div>
+			</div>
 		);
 	}
 }

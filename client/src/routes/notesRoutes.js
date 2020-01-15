@@ -1,14 +1,19 @@
-const NotesPage = require("../NotesPage")
-const NotePage = require("../NotesPage")
+import NotesPage from "../NotesPage"
+import NotePage from "../NotesPage"
+import NewNotePage from "../NewNotePage"
 const notesRoutes = [
   {
-    path: "/notes/",
-    component: NotesPage
+    path: "/notes/add",
+    component: NewNotePage
   },
   {
     path: "/notes/:note_id",
     component: NotePage
-  }
+  },
+  {
+    path: "/notes/",
+    component: NotesPage
+  },
 ];
 
 export default notesRoutes;

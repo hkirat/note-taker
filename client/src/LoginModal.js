@@ -3,7 +3,6 @@ import notesRoutes from "./routes/notesRoutes"
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Redirect } from 'react-router-dom'
 import axios from "axios";
 import config from "./config";
 import classnames from 'classnames';
@@ -29,6 +28,7 @@ class Landing extends React.Component {
 			notifications: []
 		}
 	}
+	
 	notify = (msg) => {
 		let self = this;
 		this.state.notifications.push(msg);
@@ -48,6 +48,9 @@ class Landing extends React.Component {
 	    })
 	    .then((res) => {
 	      if ((res.status == 200 || res.status == 204 )) {
+	      	localStorage.setItem('user', JSON.stringify({
+                token: res.data.token
+            }))
 	      	this.props.setUser(res.data.user);
 	      }
       	  this.notify(res.data.msg);
