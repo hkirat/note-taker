@@ -1,6 +1,8 @@
 client/node_modules
 server/node_modules
 client/package-lock.json
+client/yarn.lock
 server/package-lock.json
+server/yarn.lock
 client/src/config.js
 server/config/config.js
