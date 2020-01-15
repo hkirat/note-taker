@@ -59,7 +59,7 @@ router.post('/signIn', [userExists, passport.authenticate('local')], function(re
     let token = jwt.sign({
         _id: req.user._id
     }, config.JWTsecret, {});
-    res.send({message:'You are logged in', user: trimUser(req.user), token:token})
+    res.send({message:'You are logged in', user: trimUser(req.user), token})
 })
 
 router.get('/', [ensureAuthenticated], function(req, res) {

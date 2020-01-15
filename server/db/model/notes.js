@@ -13,7 +13,6 @@ function get(slug, user_id) {
 function add(slug, user_id, member_id) {
 	return get(slug, member_id)
 		.then((note) => {
-			if(note.)
 			return Notes.updateOne({slug}, {"$push": {"members": user_id}});
 		})
 }
@@ -22,8 +21,8 @@ function request(slug, user_id) {
 	Notes.updateOne({slug}, {"$push": {"requests": user_id}});
 }
 
-function insert(title, description, admin) {
-	return Notes.create({admin, members: [admin], description, title}).exec();
+function insert(title, description, admin, slug) {
+	return Notes.create({admin, members: [admin], description, title, slug});
 }
 
 module.exports = {get, insert, request, add, getAll};

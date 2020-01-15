@@ -6,6 +6,7 @@ let logger = require("morgan");
 
 let config  = require('./config/config')
 let user = require('./routes/user')
+let notes = require('./routes/notes')
 
 /*
 let resetPasswordHandler = require('./routes/resetPasswordHandler')
@@ -45,3 +46,4 @@ app.use(limiter)
 app.listen(3001, () => console.log(`Example app listening on port 3001!`))
 
 app.use('/user', user)
+app.use('/notes', notes)

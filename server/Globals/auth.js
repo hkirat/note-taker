@@ -13,6 +13,18 @@ function trimUser(user) {
 	return Object.assign({}, {first_name: user.first_name, email: user.username});
 }
 
+function trimNotes(notes, user_id) {
+	return notes.map((note) => {
+		console.log("userid");
+		console.log(user_id);
+		console.log(note);
+		if(note.members.includes(user_id)) {
+			return {title: note.title, hasAccess: true}
+		}
+		return {title: note.title, hasAccess: false}
+	})
+}
+
 function userExists(req, res, next) {
 	if (!validatePassword(req.body.password).success) {
         return res.status(401).json({msg: "Password format is incorrect"});
@@ -34,16 +46,30 @@ function userExists(req, res, next) {
 }
 
 
-// test authentication
 function ensureAuthenticated(req, res, next) {
-	let token = req.body.token || req.query.token; // taking the token we passed in the request
+	let token = req.body.token || req.query.token;
 	req.user = false; 
     if (!token) {
     	return res.status(403).json({});
 	}
     jwt.verify(token, config.JWTsecret, function(err, user) {
         if (err) {
-        	return next();
+        	return res.status(403).json({msg: "Error while authenticating request, please sign in again"});
+        }
+        req.user = user;
+        return next();
+	})
+}
+
+function extractUserid(req, res, next) {
+	let token = req.body.token || req.query.token;
+	req.user = null; 
+    if (!token) {
+    	return next()
+	}
+    jwt.verify(token, config.JWTsecret, function(err, user) {
+        if (err) {
+        	return next()
         }
         req.user = user;
         return next();
@@ -134,4 +160,5 @@ function getRandomString(len) {
 
   return text;
 }
-module.exports = {trimUser, userExists, validateEmail, validatePassword, ensureAuthenticated, ensureHasNoteAccess, getRandomString, passwordValidator, sendMail};
+
+module.exports = {trimNotes, extractUserid, trimUser, userExists, validateEmail, validatePassword, ensureAuthenticated, ensureHasNoteAccess, getRandomString, passwordValidator, sendMail};
