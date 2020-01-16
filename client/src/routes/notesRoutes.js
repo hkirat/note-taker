@@ -3,15 +3,15 @@ import NotePage from "../NotePage"
 import NewNotePage from "../NewNotePage"
 const notesRoutes = [
   {
-    path: "/notes/add",
+    path: "/add",
     component: NewNotePage
   },
   {
-    path: "/notes/:note_id",
+    path: "/:note_id",
     component: NotePage
   },
   {
-    path: "/notes/",
+    path: "/",
     component: NotesPage
   },
 ];

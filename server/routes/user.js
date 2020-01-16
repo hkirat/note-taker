@@ -71,7 +71,6 @@ router.post('/activate', function(req, res) {
     
     jwt.verify(token, config.JWTsecret, function(err, decoded) { // using the token we passed to authonticate the account
         if (err || decoded.username != username) return res.status(404).send({ msg: 'Failed to authenticate token.' });
-        console.log("hi there:");
         userModel.activate(username)
             .then((userAcc) => {
                 res.json({success: true, user: trimUser(userAcc), token: jwt.sign({

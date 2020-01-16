@@ -6,11 +6,12 @@ import ActivatePage from './ActivatePage';
 import * as serviceWorker from './serviceWorker';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 const routing = (
   <Router>
     <div>
-      <Route path="/notes" component={NotesTopper} />
       <Route path="/activate/:token/:username" component={ActivatePage} />
+      <Route path="/" component={NotesTopper} />
     </div>
   </Router>
 )

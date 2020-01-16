@@ -54,7 +54,7 @@ class Notes extends React.Component {
           <CardImg src="/new.png" alt="Note" />
             <CardBody>
               <CardTitle>{this.props.title}</CardTitle>
-                <Button color="warning" href={`/notes/add`}>
+                <Button color="warning" href={`/add`}>
                   New note
                 </Button>
             </CardBody>
