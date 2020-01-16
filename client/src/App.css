@@ -8,6 +8,15 @@
   z-index: 100000;
 }
 
+.Card {
+  margin: 30px;
+}
+
+.CardHolder {
+  margin: 3vw;
+  margin-top: 0px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

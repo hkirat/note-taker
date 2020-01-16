@@ -50,12 +50,14 @@ class Landing extends React.Component {
 	      	localStorage.setItem('user', JSON.stringify({
                 token: res.data.token
             }))
-	      	this.props.setUser(res.data.user);
+	      	window.location.href = "/"; 
 	      }
       	  this.notify("primary", "Signing in");
 	    })
 	    .catch(e => {
-	      	this.notify("danger", e.msg || "Error while Signing in");
+	      	if(e.response && e.response.data)
+	      		return this.notify("danger", e.response.data.msg || "Error while Signing in");
+      		this.notify("danger", "Error while Signing in");
 	    })
 	}
 

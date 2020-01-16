@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const routing = (
   <Router>
     <div>
-      <Route path="/notes" component={NotesTopper} />
       <Route path="/activate/:token/:username" component={ActivatePage} />
+      <Route path="/" component={NotesTopper} />
     </div>
   </Router>
 )

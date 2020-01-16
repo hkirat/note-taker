@@ -8,6 +8,19 @@ import axios from "axios";
 import config from "./config";
 import { Alert } from 'reactstrap';
 import Loader from "./Loader";
+import Topbar from "./TopBar";
+
+import {
+  Navbar, NavbarBrand, Button, NavbarText, NavLink, Collapse, Nav, NavbarToggler, 
+} from 'reactstrap';
+
+const routes = (
+  <Switch>
+  	{notesRoutes.map((prop, key) => {
+      return <Route path={prop.path} component={prop.component} key={key} />;
+    })}
+  </Switch>
+);
 
 class Landing extends React.Component {
 	constructor(props){  
@@ -53,26 +66,28 @@ class Landing extends React.Component {
 	    })
 	}
 
+	logout = () => {
+        localStorage.clear(); // clearing the local storage
+        window.location.reload();
+    }
+
 	render() {
 	    if(!this.state.render) {
 	    	return <Loader/>
 	    }
 		return (
 			<div>
-				<LoginModal
-					modalOpen={!this.state.isLoggedIn}
-					setUser={this.setUser}
-				/>
-				{this.renderAlerts()}
-				<div>
-					{
-					  <Switch>
-					    {notesRoutes.map((prop, key) => {
-					  		return <Route path={prop.path} component={prop.component} key={key} notify={this.notify}/>
-					    })}
-					  </Switch>
-					}
-				</div>
+			<Topbar
+				isLoggedIn={this.state.isLoggedIn}
+			/><br/>
+			<LoginModal
+				modalOpen={!this.state.isLoggedIn}
+				setUser={this.setUser}
+			/>
+			{this.renderAlerts()}
+			<div className="CardHolder">
+				{routes}
+			</div>
 			</div>
 		);
 	}

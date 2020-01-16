@@ -14,10 +14,10 @@ class NotesCard extends React.Component {
     return (
       <Card>
         <CardImg src={`/topper${parseInt(Math.random() * 3)}.jpg`} alt="Note" />
-        <CardBody>
+        <CardBody className="card">
           <CardTitle>{this.props.title}</CardTitle>
             {this.props.hasAccess ? (
-              <Button color="primary" href={`/notes/${this.props.slug}`}>
+              <Button color="primary" href={`/${this.props.slug}`}>
                 Open
               </Button>
             )

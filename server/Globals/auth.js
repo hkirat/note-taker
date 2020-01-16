@@ -33,9 +33,9 @@ function userExists(req, res, next) {
         {username: req.body.username},
         (err, userAcc) => {
             if(userAcc === null) {
-                return res.status(401).json({message:'Email Id does not exists. Please sign up to continue.', user: userAcc})
-            } else if(userAcc !== null && userAcc.active == false) {
-                return res.status(401).json({message:"Validate your account before sign in. Please check your email.", user: null})
+                return res.status(401).json({msg:'Email Id does not exists. Please sign up to continue.', user: userAcc})
+            } else if(userAcc.active == false) {
+                return res.status(401).json({msg:"Validate your account before sign in. Please check your email.", user: null})
             } 
             return next();
         }

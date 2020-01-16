@@ -25,7 +25,7 @@ class NewNote extends React.Component {
 
   redirect = () => {
     if (this.state.redirect) {
-      return <Redirect to={`/notes/${this.state.redirect}`} />
+      return <Redirect to={`/${this.state.redirect}`} />
     }
   }
 
