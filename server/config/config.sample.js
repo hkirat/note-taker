@@ -5,6 +5,7 @@ let config = {
     frontendUrl: process.env.frontendUrl || "http://localhost:3000",
     smtp:"smtp.ethereal.email", // i.e 'smtp.domain.com'
     mongoUrl: process.env.mongoUrl || "mongodb://localhost:27017/notes",
+    port: 3001,
     GLOBALS: {
     	NOTES_LIMIT: 10
     }

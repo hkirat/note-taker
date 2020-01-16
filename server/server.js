@@ -8,12 +8,6 @@ let config  = require('./config/config')
 let user = require('./routes/user')
 let notes = require('./routes/notes')
 
-/*
-let resetPasswordHandler = require('./routes/resetPasswordHandler')
-let resetPasswordEmail = require('./routes/resetPasswordEmail')
-let protected = require('./routes/protected')
-*/
-// passport imports
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let session = require('express-session')
@@ -43,7 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors())
 app.use(limiter)
-app.listen(3001, () => console.log(`Example app listening on port 3001!`))
+app.listen(config.port, () => console.log(`Example app listening on port ${config.port}!`))
 
 app.use('/user', user)
 app.use('/notes', notes)
