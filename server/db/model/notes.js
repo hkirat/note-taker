@@ -7,22 +7,38 @@ function getAll() {
 }
 
 function get(slug, user_id) {
-	return Notes.findOne({slug, user: {"$in": members}});
+	return Notes.findOne({slug, members: {"$in": [user_id]}});
 }
 
-function add(slug, user_id, member_id) {
+function approve(slug, user_id, member_id) {
 	return get(slug, member_id)
 		.then((note) => {
-			return Notes.updateOne({slug}, {"$push": {"members": user_id}});
+			if(note) {
+				let index = note.requests.map((req => req.user_id)).indexOf(user_id);
+				let updatedRequests = note.requests;
+				if(index != -1) {
+					note.requests.splice(index, 1);
+				}
+				console.log(index);
+				console.log(updatedRequests);
+				return Notes.updateOne({slug}, {"$set": {requests: updatedRequests},
+				 	"$addToSet": {"members": user_id}
+			 	});
+			}
+			return Promise.reject();
 		})
 }
 
-function request(slug, user_id) {
-	Notes.updateOne({slug}, {"$push": {"requests": user_id}});
+function request(slug, user_id, email) {
+	return Notes.updateOne({slug}, {"$addToSet": {"requests": {user_id, email}}});
 }
 
 function insert(title, description, admin, slug) {
 	return Notes.create({admin, members: [admin], description, title, slug});
 }
 
-module.exports = {get, insert, request, add, getAll};
+function update(title, description, user_id, slug) {
+	return Notes.updateOne({slug, members: {"$in": [user_id]}}, {description, title});
+}
+
+module.exports = {get, insert, request, approve, getAll, update};

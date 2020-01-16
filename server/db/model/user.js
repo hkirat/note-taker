@@ -3,7 +3,11 @@ let jwt = require('jsonwebtoken');
 let config = require('../../config/config');
 
 function get(_id) {
-	return User.User.findOne({_id}).exec();
+	return User.findOne({_id}).exec();
+}
+
+function getFromEmail(email) {
+	return User.findOne({username: email}).exec();
 }
 
 function register(email, password, first_name, last_name) {
@@ -15,4 +19,8 @@ function register(email, password, first_name, last_name) {
 	    }), password)
 }
 
-module.exports = {get, register};
+function activate(username) {
+	return User.findOneAndUpdate({username: username}, {"$set": {active:true}}).exec()
+}
+
+module.exports = {get, register, getFromEmail, activate};

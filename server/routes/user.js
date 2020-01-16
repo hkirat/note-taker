@@ -1,6 +1,5 @@
 let express = require('express');
 let router = express.Router();
-//let {User} = require('../db/models/UserSchema')
 let passport = require('passport');
 let jwt = require('jsonwebtoken');
 let config = require('../config/config');
@@ -30,6 +29,7 @@ router.put('/changePassword' , [passwordValidator, ensureAuthenticated, passport
     })
 });
 */
+
 router.post('/signUp', function(req, res) {
     if (!validatePassword(req.body.password).success) {
         return res.status(401).json({msg: "Password format is incorrect"});
@@ -43,11 +43,11 @@ router.post('/signUp', function(req, res) {
     let token = jwt.sign({ username: req.body.username }, config.JWTsecret, {});
     userModel.register(req.body.username, req.body.password, req.body.first_name, req.body.last_name)
         .then((userAcc) => {
-            sendMail(req.body.username, `Please validate your account`, `${config.server}/activate/${token}/${req.body.username}`, function(err) {
+            sendMail(req.body.username, `Please validate your account`, `${config.frontendUrl}/activate/${token}/${req.body.username}`, function(err) {
                     if(err) {
-                        res.status(401).json({message: "Error while sending verification mail, please try again"});
+                        return res.status(401).json({msg: "Error while sending verification mail, please try again"});
                     }
-                    res.json({message: "Validate your account. Please check your email"})
+                    res.json({msg: "Validate your account. Please check your email"})
                 });
         })
         .catch((err) => {
@@ -60,6 +60,28 @@ router.post('/signIn', [userExists, passport.authenticate('local')], function(re
         _id: req.user._id
     }, config.JWTsecret, {});
     res.send({message:'You are logged in', user: trimUser(req.user), token})
+})
+
+router.post('/activate', function(req, res) {
+    let token = req.body.token;
+    let username = req.body.username;
+    if(!token || !username) {
+        return res.status(404);
+    }
+    
+    jwt.verify(token, config.JWTsecret, function(err, decoded) { // using the token we passed to authonticate the account
+        if (err || decoded.username != username) return res.status(404).send({ msg: 'Failed to authenticate token.' });
+        console.log("hi there:");
+        userModel.activate(username)
+            .then((userAcc) => {
+                res.json({success: true, user: trimUser(userAcc), token: jwt.sign({
+                    _id: userAcc._id
+                }, config.JWTsecret, {})});
+            })
+            .catch((err) => {
+                return res.status(404);
+            })
+    })
 })
 
 router.get('/', [ensureAuthenticated], function(req, res) {

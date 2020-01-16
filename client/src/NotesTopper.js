@@ -7,27 +7,36 @@ import Notes from "./Notes";
 import notesRoutes from "./routes/notesRoutes"
 import axios from "axios";
 import config from "./config";
-
-const switchRoutes = (
-  <Switch>
-    {notesRoutes.map((prop, key) => {
-      return <Route path={prop.path} component={prop.component} key={key} />
-    })}
-  </Switch>
-);
+import { Alert } from 'reactstrap';
 
 class Landing extends React.Component {
 	constructor(props){  
 		super(props);  
 		this.state = {
 		  isLoggedIn: false,
-		  render: false
+		  render: false,
+		  notifications: []
 		}
 		this.getLoggedIn();
 	}
 
 	setUser = (user) => {
 		this.setState({user, isLoggedIn: true})
+	}
+
+	renderAlerts = () => {
+		return (
+			<div>
+				{this.state.notifications.map((item, key) => <Alert color="primary" key={key}>{item}</Alert>)}
+		    </div>
+		)
+	}
+
+	notify = (msg) => {
+		let self = this;
+		this.state.notifications.push(msg);
+		this.setState({refresh: !this.state.refresh});
+		window.setTimeout(() => self.state.notifications.splice(0, 1), 3000);
 	}
 	
 	getLoggedIn = () => {
@@ -56,8 +65,15 @@ class Landing extends React.Component {
 					modalOpen={!this.state.isLoggedIn}
 					setUser={this.setUser}
 				/>
+				{this.renderAlerts()}
 				<div>
-					{switchRoutes}
+					{
+					  <Switch>
+					    {notesRoutes.map((prop, key) => {
+					  		return <Route path={prop.path} component={prop.component} key={key} notify={this.notify}/>
+					    })}
+					  </Switch>
+					}
 				</div>
 			</div>
 		);

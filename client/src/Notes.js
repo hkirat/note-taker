@@ -5,9 +5,9 @@ import axios from "axios";
 import config from "./config";
 
 import {
-  Container, Col, Form,
+  Container, Col, Form, Row,
   FormGroup, Label, Input,
-  Button, Modal
+  Button, Modal, Alert
 } from 'reactstrap';
 
 class Notes extends React.Component {
@@ -32,9 +32,9 @@ class Notes extends React.Component {
 
   renderNotes = () => {
     return (
-      <div>
+      <Row>
         {this.state.notes.map((item, key) => <div> Note</div>)}
-      </div>
+      </Row>
     )
   }
 
@@ -46,14 +46,25 @@ class Notes extends React.Component {
     )
   }
 
+  renderWelcome = () => {
+    console.log(this.props.location)
+    if(this.props.location.query.welcome) {
+      return (
+        <Alert color="primary">Welcome to Notes, You have successfully activated your account</Alert>
+      )
+    }
+    return null;
+  }
+
   render() {
     if(!this.state.render) {
       return (
-      <div>loading</div>
+        <div>loading</div>
       )
     }
     return (
       <Container className="App">
+        {this.renderWelcome()}
         {this.renderNotes()}
         {this.renderAdder()}
       </Container>

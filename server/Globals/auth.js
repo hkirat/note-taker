@@ -15,13 +15,10 @@ function trimUser(user) {
 
 function trimNotes(notes, user_id) {
 	return notes.map((note) => {
-		console.log("userid");
-		console.log(user_id);
-		console.log(note);
 		if(note.members.includes(user_id)) {
-			return {title: note.title, hasAccess: true}
+			return {title: note.title, hasAccess: true, slug: note.slug}
 		}
-		return {title: note.title, hasAccess: false}
+		return {title: note.title, hasAccess: false, slug: note.slug}
 	})
 }
 
@@ -73,6 +70,27 @@ function extractUserid(req, res, next) {
         }
         req.user = user;
         return next();
+	})
+}
+
+function extractUser(req, res, next) {
+	let token = req.body.token || req.query.token;
+	req.user = null; 
+    if (!token) {
+    	return res.status(403).json({});
+	}
+    jwt.verify(token, config.JWTsecret, function(err, user) {
+        if (err) {
+	    	return res.status(403).json({});
+        }
+        User.findOne({_id: user._id}, (err, userAcc) => {
+	            if(userAcc === null) {
+	                return res.status(403).json({});
+	            }
+	            req.user = userAcc;
+	            return next();
+	        }
+	    );
 	})
 }
 
@@ -134,11 +152,11 @@ function sendMail(email, msg, link, cb) {
 	        pass: config.emailPass // generated ethereal password
 	    }
 	});
-	// setup email data with unicode symbols
+
 	let mailOptions = {
 	    from: config.nodemailerEmail,
 	    to: email,
-	    subject: `Thanks for signing up. Please Verify your account `,
+	    subject: msg,
 	    html: emailMessage(link, msg)
 	};
 
@@ -161,4 +179,4 @@ function getRandomString(len) {
   return text;
 }
 
-module.exports = {trimNotes, extractUserid, trimUser, userExists, validateEmail, validatePassword, ensureAuthenticated, ensureHasNoteAccess, getRandomString, passwordValidator, sendMail};
+module.exports = {extractUser, trimNotes, extractUserid, trimUser, userExists, validateEmail, validatePassword, ensureAuthenticated, ensureHasNoteAccess, getRandomString, passwordValidator, sendMail};

@@ -1,5 +1,5 @@
 import NotesPage from "../NotesPage"
-import NotePage from "../NotesPage"
+import NotePage from "../NotePage"
 import NewNotePage from "../NewNotePage"
 const notesRoutes = [
   {

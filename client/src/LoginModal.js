@@ -7,8 +7,7 @@ import axios from "axios";
 import config from "./config";
 import classnames from 'classnames';
 import { UncontrolledAlert } from 'reactstrap';
-import { Alert } from 'reactstrap';
-
+import Alert from './Alert';
 import {
   Container, Col, Form,
   FormGroup, Label, Input, Modal, 
@@ -25,17 +24,17 @@ class Landing extends React.Component {
 			first_name: "",
 			last_name: "",
 			activeTab: 1,
-			notifications: []
+			alerts: []
 		}
 	}
-	
-	notify = (msg) => {
-		let self = this;
-		this.state.notifications.push(msg);
-		this.setState({refresh: !this.state.refresh});
-		window.setTimeout(() => self.state.notifications.splice(0, 1), 3000);
-	}
 
+	notify = (color, msg) => {
+	    let self = this;
+	    this.state.alerts.push({color, msg});
+	    this.setState({refresh: !this.state.refresh});
+	    window.setTimeout(() => {self.state.alerts.splice(0, 1); self.setState({refresh: !this.state.refresh})}, 3000);
+  	}
+	
 	toggle = (tab) => {
 		if(this.state.activeTab !== tab) this.setState({activeTab: tab});
 	}
@@ -53,11 +52,10 @@ class Landing extends React.Component {
             }))
 	      	this.props.setUser(res.data.user);
 	      }
-      	  this.notify(res.data.msg);
+      	  this.notify("primary", "Signing in");
 	    })
 	    .catch(e => {
-	    	alert(e);
-	    	self.notify("Failed to Login");
+	      	this.notify("danger", e.msg || "Error while Signing in");
 	    })
 	}
 
@@ -71,12 +69,13 @@ class Landing extends React.Component {
 	    })
 	    .then((res) => {
 	      if ((res.status == 200 || res.status == 204 )) {
-	      	alert("Verification mail sent");
+	      	this.notify("primary", "Verification Mail Sent, Please check your mail");
 	      }
-	      //alert a notification
 	    })
-	    .catch(e => {
-	    	//alert a notification
+	    .catch((e) => {
+	    	if(e.response && e.response.data)
+	      		return this.notify("danger", e.response.data.msg || "Error while Signing up");
+      		this.notify("danger", "Error while Signing up");
 	    })
 	}
 
@@ -84,20 +83,11 @@ class Landing extends React.Component {
 		return this.state.activeTab == 2 ? "Sign up" : "Sign in";
 	}
 
-	getAlerts = () => {
-		return (
-			<div>
-				{this.state.notifications.map((item, key) => <Alert color="primary" key={key}>{item}</Alert>)}
-		    </div>
-		)
-	}
-
 	render() {
 		let self = this;
 		return (
 			  <Container className="App">
 			     <Modal isOpen={this.props.modalOpen}>
-			     {this.getAlerts()}
 			      <Nav tabs>
 			        <NavItem>
 			          <NavLink
@@ -136,12 +126,16 @@ class Landing extends React.Component {
 					          <Label for="examplePassword">Last Name</Label>
 					          <Input type="text" name="last_name" id="exampleLastName" placeholder="Last Name" onChange={(e) => this.setState({last_name: e.target.value})}/>
 					        </FormGroup>
+					        <Button color="primary" onClick={self.signUp}>Sign Up</Button>
 					    </div>
-		        	) : null}
+		        	) : (
+		          		<Button color="primary" onClick={self.signIn}>Sign In</Button>
+		          	)}
 			      </Form>
-		          <Button color="primary" onClick={self.signIn}>Sign In</Button>{' '}
-		          <Button color="primary" onClick={self.signUp}>Sign Up</Button>{' '}
 			    </Modal>
+			    <Alert
+		          alerts={this.state.alerts}
+		        />
 			  </Container>
 		);
 	}

@@ -5,11 +5,13 @@ import { Redirect } from 'react-router-dom'
 
 import axios from "axios";
 import config from "./config";
+import NoteCard from "./NoteCard";
 
 import {
-  Container, Col, Form,
+  Container, Col, Form, Row,
   FormGroup, Label, Input,
-  Button, Modal
+  Button, Modal, Alert, Card, 
+  CardImg, CardBody, CardTitle
 } from 'reactstrap';
 
 class Notes extends React.Component {
@@ -17,7 +19,8 @@ class Notes extends React.Component {
     super(props);  
     this.state = {
       isLoggedIn: false,
-      render: false
+      render: false,
+      notes: []
     }
     this.getNotes();
   }
@@ -33,8 +36,52 @@ class Notes extends React.Component {
     })
   }
 
+  renderNotes = () => {
+    return (
+      <Row>
+        {this.state.notes.map((prop, key) => (
+          <Col sm="3">
+            <NoteCard 
+              title={prop.title}
+              hasAccess={prop.hasAccess}
+              slug={prop.slug}  
+            />
+          </Col>
+          )
+        )}
+        <Col sm="3">
+          <Card>
+          <CardImg src="https://reactstrap.github.io/assets/318x180.svg" alt="Note" />
+            <CardBody>
+              <CardTitle>{this.props.title}</CardTitle>
+                <Button color="warning" href={`/notes/add`}>
+                  New
+                </Button>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    )
+  }
+
+  renderWelcome = () => {
+    let search = this.props.location.search;
+    let params = new URLSearchParams(search);
+    if(params.get('welcome')) {
+      return (
+        <Alert color="primary">Welcome to Notes, You have successfully activated your account</Alert>
+      )
+    }
+    return null;
+  }
+
   render() {
-    return (<div></div>);
+    return (
+      <div>
+        {this.renderWelcome()}
+        {this.renderNotes()}
+      </div>
+    );
   }
 }
 
