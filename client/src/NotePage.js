@@ -5,6 +5,8 @@ import Editor from "./Editor"
 import Alert from "./Alert";
 import axios from "axios";
 import config from "./config";
+import Loader from "./Loader";
+
 import {
   Container, Col, Form, Card, CardText,
   FormGroup, Label, Input,
@@ -41,10 +43,10 @@ class Note extends React.Component {
       slug: this.state.slug
     })
     .then((res) => {
-      alert("notification sent")
+      this.notify("primary", "Request Sent, Please follow up with an admin to get it approved");
     })
     .catch(e => {
-      alert(e);
+      this.notify("danger", "Error while Sending request to admin");
     })
   }
 
@@ -113,15 +115,21 @@ class Note extends React.Component {
 
   render() {
     if(!this.state.render) {
-      return (
-        <div>loading</div>
-      )
+      return <Loader/>
     }
     if(!this.state.access) {
       return (
-        <Button onClick={this.requestAccess}>
-          Request Access
-        </Button>
+        <Container style={{marginTop: "40vh"}}>
+          <center>
+            <Alert
+              alerts={this.state.alerts}
+            />
+            <h1> You don't have access to this note </h1><br/>
+            <Button color="primary" onClick={this.requestAccess}>
+              Request Access
+            </Button>
+          </center>
+        </Container>
       )
     }
     return (

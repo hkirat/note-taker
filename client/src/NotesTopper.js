@@ -8,6 +8,7 @@ import notesRoutes from "./routes/notesRoutes"
 import axios from "axios";
 import config from "./config";
 import { Alert } from 'reactstrap';
+import Loader from "./Loader";
 
 class Landing extends React.Component {
 	constructor(props){  
@@ -54,11 +55,9 @@ class Landing extends React.Component {
 	}
 
 	render() {
-		if(!this.state.render) {
-			return (
-			<div>loading</div>
-			)
-		}
+	    if(!this.state.render) {
+	    	return <Loader/>
+	    }
 		return (
 			<div>
 				<LoginModal

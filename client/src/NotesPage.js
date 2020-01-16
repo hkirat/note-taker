@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Redirect } from 'react-router-dom'
-
+import Loader from "./Loader";
 import axios from "axios";
 import config from "./config";
 import NoteCard from "./NoteCard";
@@ -11,7 +11,7 @@ import {
   Container, Col, Form, Row,
   FormGroup, Label, Input,
   Button, Modal, Alert, Card, 
-  CardImg, CardBody, CardTitle
+  CardImg, CardBody, CardTitle, Spinner
 } from 'reactstrap';
 
 class Notes extends React.Component {
@@ -76,6 +76,9 @@ class Notes extends React.Component {
   }
 
   render() {
+    if(!this.state.render) {
+      return <Loader/>
+    }
     return (
       <div>
         {this.renderWelcome()}
