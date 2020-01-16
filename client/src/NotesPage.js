@@ -51,11 +51,11 @@ class Notes extends React.Component {
         )}
         <Col sm="3">
           <Card>
-          <CardImg src="https://reactstrap.github.io/assets/318x180.svg" alt="Note" />
+          <CardImg src="/new.png" alt="Note" />
             <CardBody>
               <CardTitle>{this.props.title}</CardTitle>
                 <Button color="warning" href={`/notes/add`}>
-                  New
+                  New note
                 </Button>
             </CardBody>
           </Card>

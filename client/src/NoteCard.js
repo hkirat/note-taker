@@ -13,7 +13,7 @@ class NotesCard extends React.Component {
   render() {
     return (
       <Card>
-        <CardImg src="https://reactstrap.github.io/assets/318x180.svg" alt="Note" />
+        <CardImg src={`/topper${parseInt(Math.random() * 3)}.jpg`} alt="Note" />
         <CardBody>
           <CardTitle>{this.props.title}</CardTitle>
             {this.props.hasAccess ? (

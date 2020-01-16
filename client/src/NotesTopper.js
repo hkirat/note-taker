@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import { Switch, Route, Redirect } from "react-router-dom";
 import LoginModal from './LoginModal';
-import Notes from "./Notes";
 import notesRoutes from "./routes/notesRoutes"
 import axios from "axios";
 import config from "./config";
