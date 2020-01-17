@@ -90,7 +90,9 @@ class Landing extends React.Component {
 			/>
 			{this.renderAlerts()}
 			<div className="CardHolder">
-				{routes}
+				<div class = "wrapper">
+					{routes}
+				</div>
 			</div>
 			</div>
 		);

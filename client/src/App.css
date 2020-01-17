@@ -2,19 +2,54 @@
   text-align: center;
 }
 
+.Topper {
+  height: 300px;
+  background: linear-gradient(#03c,#39f);
+}
+
 .Fixed {
   position: fixed;
   bottom: 0;
   z-index: 100000;
 }
 
+.Login {
+  text-align: center;
+  margin: 20px;
+  padding: 10px;
+}
+.Login Nav {
+  margin: 20px;
+}
 .Card {
   margin: 30px;
 }
 
 .CardHolder {
-  margin: 3vw;
   margin-top: 0px;
+  z-index:1;
+  display:block;
+  float:left;
+  margin-top:-100px;
+  width:100%;
+  background: linear-gradient(#ffffff, #ffffff) ;
+  transform:skew(0deg,3deg);
+  -ms-transform:skew(0deg,3deg); /* IE 9 */
+  -webkit-transform:skew(0deg,3deg); /* Safari and Chrome */
+}
+
+
+.CardHolder .wrapper {
+  display:block;
+  float:left;
+  margin:50px auto 200px;
+  width:100%;
+  padding:0 5%;
+  transform:skew(0deg,-3deg);
+  -ms-transform:skew(0deg,-3deg);
+  -webkit-transform:skew(0deg,-3deg); 
+  position:relative;
+  top:-200px;
 }
 
 .App-logo {

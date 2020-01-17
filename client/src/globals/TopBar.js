@@ -26,17 +26,19 @@ class Landing extends React.Component {
 
 	render() {
 		return (
-			<Navbar color="light" light expand="md">
-	            <NavbarBrand>Notes</NavbarBrand>
-	            <NavbarToggler onClick={this.toggleNavBar} />
-	            <Collapse isOpen={this.state.navBarOpen} navbar>
-		            <Nav className="mr-auto" navbar>
-			            <NavLink href="/">Home</NavLink>
-		        	</Nav>
-		        	{this.props.isLoggedIn ? (<Button onClick={this.logout}>Logout</Button>) : (null)}
-		        	
-	        	</Collapse>
-	      	</Navbar>
+			<div className="Topper">
+				<Navbar color="#0033cc" dark expand="md">
+		            <NavbarBrand>Notes</NavbarBrand>
+		            <NavbarToggler onClick={this.toggleNavBar} />
+		            <Collapse isOpen={this.state.navBarOpen} navbar>
+			            <Nav className="mr-auto" navbar>
+				            <NavLink href="/">Home</NavLink>
+			        	</Nav>
+			        	{this.props.isLoggedIn ? (<Button color="success" onClick={this.logout}>Logout</Button>) : (null)}
+			        	
+		        	</Collapse>
+		      	</Navbar>
+	      	</div>
 		);
 	}
 }
