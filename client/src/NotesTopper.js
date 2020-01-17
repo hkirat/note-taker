@@ -72,7 +72,8 @@ class Landing extends React.Component {
     }
 
     isActivationRoute = () => {
-    	return this.props.location.includes("activate")
+    	console.log(this.props.location)
+    	return this.props.location.pathname.includes("activate")
     }
 
 	render() {
