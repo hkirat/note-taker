@@ -22,7 +22,8 @@ class Note extends React.Component {
       slug: props.match.params.note_id,
       access: true,
       requests: [],
-      alerts: []
+      alerts: [], 
+      exist: true
     }
     this.getNote()
   }
@@ -33,7 +34,7 @@ class Note extends React.Component {
         this.setState({render: true, description: res.data.note.description, title: res.data.note.title, requests: res.data.note.requests});
       })
       .catch(e => {
-        this.setState({render: true, access: false})
+        this.setState({render: true, exist: false})
       })
   }
 
@@ -116,6 +117,17 @@ class Note extends React.Component {
   render() {
     if(!this.state.render) {
       return <Loader/>
+    }
+    if(!this.state.exist) {
+      return (
+        <center>
+          <Container>
+            <br/><br/>
+            <h2> No note with given route exists </h2><br/>
+            <Button color="primary" href="/"> Notes </Button>
+          </Container>
+        </center>
+      )
     }
     if(!this.state.access) {
       return (

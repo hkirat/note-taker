@@ -23,7 +23,7 @@ class NotesCard extends React.Component {
             )
             :
             (
-              <Button href={`/notes/${this.props.slug}`}>
+              <Button href={`/${this.props.slug}`}>
                 Request Access
               </Button>
             )}
