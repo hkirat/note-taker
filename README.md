@@ -21,4 +21,6 @@
 - [ ] Add pagination
 - [ ] Send out email to admins in case of a new request
 - [ ] Add collaboration to notes
+- [ ] Add tests
+- [ ] Containerise app
 - [ ] Add tabs to see notes you have access to
