@@ -32,7 +32,7 @@ class Notes extends React.Component {
       this.setState({render: true, notes: res.data.notes});
     })
     .catch(e => {
-      alert(e);
+      
     })
   }
 

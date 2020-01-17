@@ -4,6 +4,7 @@ import './App.css';
 import axios from "axios";
 import config from "./config";
 import { Redirect } from "react-router-dom";
+import Loader from "./Loader";
 
 class Activate extends React.Component {
   constructor(props) {
@@ -23,12 +24,10 @@ class Activate extends React.Component {
     })
     .then((res) => {
       if ((res.status == 200 || res.status == 204 )) {
-        if(res.data.success) {
-          localStorage.setItem('user', JSON.stringify({
-              token: res.data.token
-          }))
-          self.setState({redirect: true});
-        }
+        localStorage.setItem('user', JSON.stringify({
+            token: res.data.token
+        }))
+        self.setState({redirect: true});
       }
     })
     .catch(e => {
@@ -42,7 +41,9 @@ class Activate extends React.Component {
     }
     return (
       <div>
-        Activating
+        <center>
+          <Loader/>
+        </center>
       </div>
     )
   }

@@ -71,6 +71,10 @@ class Landing extends React.Component {
         window.location.reload();
     }
 
+    isActivationRoute = () => {
+    	return this.props.location.includes("activate")
+    }
+
 	render() {
 	    if(!this.state.render) {
 	    	return <Loader/>
@@ -81,7 +85,7 @@ class Landing extends React.Component {
 				isLoggedIn={this.state.isLoggedIn}
 			/><br/>
 			<LoginModal
-				modalOpen={!this.state.isLoggedIn}
+				modalOpen={!this.state.isLoggedIn && !this.isActivationRoute()}
 				setUser={this.setUser}
 			/>
 			{this.renderAlerts()}
