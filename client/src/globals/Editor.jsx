@@ -1,9 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css';
 import { Redirect } from 'react-router-dom'
 import axios from "axios";
-import config from "./config";
+import config from "config";
 import EditorJS from '@editorjs/editorjs';
 
 import Header from '@editorjs/header'; 

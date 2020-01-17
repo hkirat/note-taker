@@ -1,7 +1,7 @@
-import NotesPage from "../NotesPage"
-import NotePage from "../NotePage"
-import NewNotePage from "../NewNotePage"
-import ActivatePage from '../ActivatePage';
+import NotesPage from "notes/NotesPage"
+import NotePage from "notes/NotePage"
+import NewNotePage from "notes/NewNotePage"
+import ActivatePage from 'auth/ActivatePage';
 const notesRoutes = [
   {
     path: "/add",

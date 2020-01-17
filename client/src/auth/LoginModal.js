@@ -1,13 +1,11 @@
-import notesRoutes from "./routes/notesRoutes"
-
+import notesRoutes from "routes/notesRoutes"
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css';
 import axios from "axios";
-import config from "./config";
+import config from "config";
 import classnames from 'classnames';
 import { UncontrolledAlert } from 'reactstrap';
-import Alert from './Alert';
+import Alert from 'globals/Alert';
 import {
   Container, Col, Form,
   FormGroup, Label, Input, Modal, 

@@ -1,10 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css';
 import { Redirect } from 'react-router-dom'
 import axios from "axios";
-import config from "./config";
-import Editor from "./Editor";
+import config from "config";
+import Editor from "globals/Editor";
 
 import {
   Container, Col, Form,

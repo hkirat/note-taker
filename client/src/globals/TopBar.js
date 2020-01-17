@@ -1,13 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css';
 import { Switch, Route, Redirect } from "react-router-dom";
-import LoginModal from './LoginModal';
-import notesRoutes from "./routes/notesRoutes"
-import axios from "axios";
-import config from "./config";
 import { Alert } from 'reactstrap';
-import Loader from "./Loader";
 
 import {
   Navbar, NavbarBrand, Button, NavbarText, NavLink, Collapse, Nav, NavbarToggler, 

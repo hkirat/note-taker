@@ -1,10 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css';
 import axios from "axios";
-import config from "./config";
+import config from "config";
 import { Redirect } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "globals/Loader";
 
 class Activate extends React.Component {
   constructor(props) {

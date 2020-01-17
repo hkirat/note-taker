@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Editor from "./Editor"
-import Alert from "./Alert";
+import 'App.css';
+import Editor from "globals/Editor"
+import Alert from "globals/Alert";
 import axios from "axios";
-import config from "./config";
-import Loader from "./Loader";
+import config from "config";
+import Loader from "globals/Loader";
 
 import {
   Container, Col, Form, Card, CardText,
@@ -127,7 +126,7 @@ class Note extends React.Component {
             <h1> You don't have access to this note or it doesn't exist</h1><br/>
             <Button color="primary" onClick={this.requestAccess}>
               Request Access
-            </Button><br/>
+            </Button><br/><br/>
             <Button color="primary" href="/">Back to Notes </Button>
           </center>
         </Container>

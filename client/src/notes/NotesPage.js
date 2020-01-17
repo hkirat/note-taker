@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css';
 import { Redirect } from 'react-router-dom'
-import Loader from "./Loader";
+import Loader from "globals/Loader";
 import axios from "axios";
-import config from "./config";
-import NoteCard from "./NoteCard";
+import config from "config";
+import NoteCard from "notes/NoteCard";
 
 import {
   Container, Col, Form, Row,
