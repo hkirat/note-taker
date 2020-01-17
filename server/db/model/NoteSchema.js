@@ -5,8 +5,8 @@ var ObjectId = Schema.ObjectId;
 
 var NotesSchema = mongoose.Schema({
     title: {type: String},
-    dateOfCreation: {type: Date},
-    lastUpdated: {type: Date},
+    dateOfCreation: {type: String},
+    lastUpdated: {type: String},
     description: {type: Object},
     admin: {type: ObjectId},
     members: {type: [String]},

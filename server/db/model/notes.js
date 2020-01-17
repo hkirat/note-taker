@@ -19,8 +19,6 @@ function approve(slug, user_id, member_id) {
 				if(index != -1) {
 					note.requests.splice(index, 1);
 				}
-				console.log(index);
-				console.log(updatedRequests);
 				return Notes.updateOne({slug}, {"$set": {requests: updatedRequests},
 				 	"$addToSet": {"members": user_id}
 			 	});
@@ -34,11 +32,12 @@ function request(slug, user_id, email) {
 }
 
 function insert(title, description, admin, slug) {
-	return Notes.create({admin, members: [admin], description, title, slug});
+	let time = new Date()/1000;
+	return Notes.create({admin, members: [admin], description, title, slug, dateOfCreation: time, lastUpdated: time});
 }
 
 function update(title, description, user_id, slug) {
-	return Notes.updateOne({slug, members: {"$in": [user_id]}}, {description, title});
+	return Notes.updateOne({slug, members: {"$in": [user_id]}}, {description, title, lastUpdated: new Date()/1000});
 }
 
 module.exports = {get, insert, request, approve, getAll, update};

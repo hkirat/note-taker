@@ -29,7 +29,7 @@ class Note extends React.Component {
   getNote = () => {
     axios.get(`${config.backEndServer}/notes?token=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token : ''}&slug=${this.state.slug}`)
       .then((res) => {
-        this.setState({render: true, description: res.data.note.description, title: res.data.note.title, requests: res.data.note.requests});
+        this.setState({render: true, description: res.data.note.description, title: res.data.note.title, requests: res.data.note.requests, lastUpdated: res.data.note.lastUpdated});
       })
       .catch(e => {
         this.setState({render: true, access: false})
@@ -111,6 +111,39 @@ class Note extends React.Component {
       </Table>
     )
   }
+  
+  getTime = () => {
+    if(!this.state.lastUpdated) {
+      return "";
+    }
+    var difference = (parseInt(new Date()/1000) - this.state.lastUpdated);
+    if(difference < 10) {
+      return "A few seconds ago";
+    }
+    var daysDifference = Math.floor(difference/60/60/24);
+    difference -= daysDifference*1000*60*60*24
+
+    var hoursDifference = Math.floor(difference/60/60);
+    difference -= hoursDifference*1000*60*60
+
+    var minutesDifference = Math.floor(difference/60);
+    difference -= minutesDifference*1000*60
+
+    var secondsDifference = Math.floor(difference);
+
+    if(daysDifference) {
+      return `${daysDifference} days ago`;
+    }
+    if(hoursDifference) {
+      return `${hoursDifference} hours ago`;
+    }
+    if(minutesDifference) {
+      return `${minutesDifference} minutes ago`;
+    }
+    if(secondsDifference) {
+      return `${secondsDifference} seconds ago`
+    }
+  }
 
   render() {
     if(!this.state.render) {
@@ -147,7 +180,7 @@ class Note extends React.Component {
                   setEditor={(editor) => this.setState({editor})}
                 />
               </CardText>
-              <Button onClick={this.update}>Update</Button>
+              <Button color="success" onClick={this.update}>Update</Button>
             </Card>
           </Col>
           <Col sm="4">
@@ -164,9 +197,14 @@ class Note extends React.Component {
                 </Button>
               </InputGroup>
             </Card>
+            <br/><br/>
+            <Card body>
+              Last Updated<br/>
+              {this.getTime()}
+            </Card>
             <br/>
           </Col>
-        </Row>
+        </Row><br/><br/><br/><br/>
       </Container>
     );
   }

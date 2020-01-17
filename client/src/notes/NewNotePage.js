@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import axios from "axios";
 import config from "config";
 import Editor from "globals/Editor";
+import Alert from "globals/Alert";
 
 import {
   Container, Col, Form,
@@ -18,7 +19,8 @@ class NewNote extends React.Component {
       title: "",
       note: {},
       editor: null,
-      redirect: null
+      redirect: null,
+      alerts: []
     }
   }
 
@@ -28,7 +30,18 @@ class NewNote extends React.Component {
     }
   }
 
+  notify = (color, msg) => {
+    let self = this;
+    this.state.alerts.push({color, msg});
+    this.setState({refresh: !this.state.refresh});
+    window.setTimeout(() => {self.state.alerts.splice(0, 1); self.setState({refresh: !this.state.refresh})}, 3000);
+  }
+
   submit = () => {
+    if(!this.state.title) {
+      return this.notify("danger", "Title must not be empty");
+    }
+
     this.state.editor.save()
       .then((note) => { 
         return axios.post(`${config.backEndServer}/notes/`, {
@@ -57,8 +70,11 @@ class NewNote extends React.Component {
               setEditor={(editor) => this.setState({editor})}
             />
           </CardText>
-          <Button onClick={this.submit}>Submit</Button>
+          <Button color="success" onClick={this.submit}>Submit</Button>
         </Card>
+        <Alert
+          alerts={this.state.alerts}
+        /><br/><br/>
       </Container>
     );
   }
