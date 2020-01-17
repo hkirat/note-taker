@@ -151,7 +151,7 @@ class Note extends React.Component {
     }
     if(!this.state.access) {
       return (
-        <Container style={{marginTop: "30vh"}}>
+        <Container style={{marginTop: "10vh"}}>
           <center>
             <Alert
               alerts={this.state.alerts}
