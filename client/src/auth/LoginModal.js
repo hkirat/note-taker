@@ -94,65 +94,63 @@ class Landing extends React.Component {
 		let self = this;
 		return (
 			  <Container>
-			  	<center>
-				    <Modal className="Login" isOpen={this.props.modalOpen}>
-				      <Nav tabs>
-				        <NavItem>
-				          <NavLink
-				            className={classnames({ active: this.state.activeTab === 1 })}
-				            onClick={() => { this.toggle(1); }}
-				          >
-				            Signin
-				          </NavLink>
-				        </NavItem>
-				        <NavItem>
-				          <NavLink
-				            className={classnames({ active: this.state.activeTab === 2 })}
-				            onClick={() => { this.toggle(2); }}
-				          >
-				            Signup
-				          </NavLink>
-				        </NavItem>
-				        </Nav>
-				       <h2>{this.getHeader()}</h2>
-				       <Form>
-				        <FormGroup>
-				          <Label for="exampleEmail">Email</Label>
-				          <Input type="email" name="email" id="exampleEmail" placeholder="Email" onChange={(e) => this.setState({email: e.target.value})}/>
-				        </FormGroup>
-				        <FormGroup>
-				          <Label for="examplePassword">Password (atleast 6 letters)</Label>
-				          <Input type="password" name="password" id="examplePassword" placeholder="Password" onChange={(e) => this.setState({password: e.target.value})}/>
-				        </FormGroup>
-				        {this.state.activeTab == 2 ? (
-				        	<div>
-		 						<FormGroup>
-						          <Label for="examplePassword">First Name</Label>
-						          <Input type="text" name="First Name" id="exampleFirstName" placeholder="First Name" onChange={(e) => this.setState({first_name: e.target.value})}/>
-						        </FormGroup>
-						         <FormGroup>
-						          <Label for="examplePassword">Last Name</Label>
-						          <Input type="text" name="last_name" id="exampleLastName" placeholder="Last Name" onChange={(e) => this.setState({last_name: e.target.value})}/>
-						        </FormGroup>
-						        <center>
-						        <Button color="primary" onClick={self.signUp}>Sign Up</Button>
-						        {this.state.spinner ? (<Spinner />) : (null)}
-						        </center>
-						    </div>
-			        	) : (
-			        		<div>
-				        		<center>
-				          			<Button color="primary" onClick={self.signIn}>Sign In</Button>
-				          			{this.state.spinner ? (<Spinner />) : (null)}
-			          			</center>
-			          		</div>
-			          	)}
-				      </Form>
-				    </Modal>
-				    <Alert
-			          alerts={this.state.alerts}
-			        />
-		        </center>
+			    <Modal className="Login" isOpen={this.props.modalOpen}>
+			      <Nav tabs>
+			        <NavItem>
+			          <NavLink
+			            className={classnames({ active: this.state.activeTab === 1 })}
+			            onClick={() => { this.toggle(1); }}
+			          >
+			            Signin
+			          </NavLink>
+			        </NavItem>
+			        <NavItem>
+			          <NavLink
+			            className={classnames({ active: this.state.activeTab === 2 })}
+			            onClick={() => { this.toggle(2); }}
+			          >
+			            Signup
+			          </NavLink>
+			        </NavItem>
+			        </Nav>
+			       <h2>{this.getHeader()}</h2>
+			       <Form>
+			        <FormGroup>
+			          <Label for="exampleEmail">Email</Label>
+			          <Input type="email" name="email" id="exampleEmail" placeholder="Email" onChange={(e) => this.setState({email: e.target.value})}/>
+			        </FormGroup>
+			        <FormGroup>
+			          <Label for="examplePassword">Password (atleast 6 letters)</Label>
+			          <Input type="password" name="password" id="examplePassword" placeholder="Password" onChange={(e) => this.setState({password: e.target.value})}/>
+			        </FormGroup>
+			        {this.state.activeTab == 2 ? (
+			        	<div>
+	 						<FormGroup>
+					          <Label for="examplePassword">First Name</Label>
+					          <Input type="text" name="First Name" id="exampleFirstName" placeholder="First Name" onChange={(e) => this.setState({first_name: e.target.value})}/>
+					        </FormGroup>
+					         <FormGroup>
+					          <Label for="examplePassword">Last Name</Label>
+					          <Input type="text" name="last_name" id="exampleLastName" placeholder="Last Name" onChange={(e) => this.setState({last_name: e.target.value})}/>
+					        </FormGroup>
+					        <center>
+					        <Button color="primary" onClick={self.signUp}>Sign Up</Button>
+					        {this.state.spinner ? (<Spinner />) : (null)}
+					        </center>
+					    </div>
+		        	) : (
+		        		<div>
+			        		<center>
+			          			<Button color="primary" onClick={self.signIn}>Sign In</Button>
+			          			{this.state.spinner ? (<Spinner />) : (null)}
+		          			</center>
+		          		</div>
+		          	)}
+			      </Form>
+			    </Modal>
+			    <Alert
+		          alerts={this.state.alerts}
+		        />
 			  </Container>
 		);
 	}
