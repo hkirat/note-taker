@@ -67,8 +67,17 @@ router.post('/request', [extractUser], function(req, res) {
     //TODO:: Send out mail to admins
     notesModel.request(req.body.slug, req.user._id, req.user.username)
         .then((note) => {
-            console.log(note);
-            return res.json({});
+            return notesModel.getBySlug(req.body.slug)
+        }).then(adminDetails => {
+            return userModel.get(adminDetails.admin)
+        })
+        .then((userDetails) => { 
+            sendMail(userDetails.username, `${userDetails.first_name}  ${userDetails.last_name} request access to your note`, `${config.frontendUrl}/giveaccess/`, function(err) {
+                if(err) {
+                    return res.status(401).json({msg: "Error while sending verification mail, please try again"});
+                }
+            });
+            return res.json({})
         })
         .catch((err) => {
             res.status(404).json({});  

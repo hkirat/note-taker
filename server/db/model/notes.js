@@ -40,4 +40,8 @@ function update(title, description, user_id, slug) {
 	return Notes.updateOne({slug, members: {"$in": [user_id]}}, {description, title, lastUpdated: new Date()/1000});
 }
 
-module.exports = {get, insert, request, approve, getAll, update};
+function getBySlug (slug) { 
+	return Notes.findOne({slug})
+}
+
+module.exports = {get, insert, request, approve, getAll, update , getBySlug};
